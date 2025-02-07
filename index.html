@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>求职测试小程序</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        input, button { display: block; width: 100%; padding: 10px; margin-top: 10px; }
+        .result { margin-top: 20px; padding: 10px; background-color: #f4f4f4; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>求职测评</h2>
+        <label>关键问题评分 (0-10):</label>
+        <input type="number" id="keyScore" min="0" max="10">
+        
+        <label>倾向性问题评分 (0-10):</label>
+        <input type="number" id="tendencyScore" min="0" max="10">
+        
+        <label>细化调整问题评分 (0-10):</label>
+        <input type="number" id="detailedScore" min="0" max="10">
+        
+        <label>二次确认问题评分 (0-10):</label>
+        <input type="number" id="confirmScore" min="0" max="10">
+        
+        <button onclick="submitTest()">提交测评</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function submitTest() {
+            const data = {
+                user_id: "test_user",
+                answers: {
+                    "关键问题": [parseFloat(document.getElementById("keyScore").value) || 0],
+                    "倾向性问题": [parseFloat(document.getElementById("tendencyScore").value) || 0],
+                    "细化调整问题": [parseFloat(document.getElementById("detailedScore").value) || 0],
+                    "二次确认问题": [parseFloat(document.getElementById("confirmScore").value) || 0]
+                }
+            };
+            
+            fetch("https://jobeyes506.github.io/job_test_project/submit_test", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+    </script>
