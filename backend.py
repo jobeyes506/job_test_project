@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-import pymysql
+import psycopg2
+import os
 import numpy as np
 from flask_cors import CORS
 
@@ -8,15 +9,15 @@ CORS(app)  # 允许跨域请求
 
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
-    "host": "your-database-host",
-    "user": "your-username",
-    "password": "your-password",
-    "database": "job_test_db",
-    "charset": "utf8mb4"
+    "host": "db.adeqlzjbkhxljhierjib.supabase.co",  # 从 Supabase 复制
+    "port": "5432",  # PostgreSQL 默认端口
+    "database": "postgres",  # Supabase 默认数据库名
+    "user": "postgres",  # 默认用户
+    "password": "huijie506"  # 你创建数据库时设置的密码
 }
 
 def get_db_connection():
-    return pymysql.connect(**DB_CONFIG)
+    return psycopg2.connect(**DB_CONFIG)
 
 # 评分权重配置
 WEIGHTS = {
