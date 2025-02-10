@@ -9,7 +9,7 @@ CORS(app)  # 允许跨域请求
 
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
-    "host": "db.adeqlzjbkhxljhierjib.supabase.co",  # 从 Supabase 复制
+    "host": "db.xyz.supabase.co",  # 从 Supabase 复制
     "port": "5432",  # PostgreSQL 默认端口
     "database": "postgres",  # Supabase 默认数据库名
     "user": "postgres",  # 默认用户
@@ -35,23 +35,28 @@ def calculate_match_score(user_answers):
         scores.append(category_score)
     return sum(scores) * 100  # 最终得分百分制
 
-@app.route("/submit_test", methods=["POST"])
+
+@app.route('/submit_test', methods=['POST'])
 def submit_test():
-    data = request.json
+    data = request.get_json()
     user_id = data.get("user_id")
-    answers = data.get("answers")  # 用户回答的测评数据
-    
-    match_score = calculate_match_score(answers)
-    
-    # 存入数据库
+    match_score = data.get("match_score")
+
     conn = get_db_connection()
     cursor = conn.cursor()
-    sql = "INSERT INTO test_results (user_id, match_score) VALUES (%s, %s)"
-    cursor.execute(sql, (user_id, match_score))
+    cursor.execute(
+        "INSERT INTO test_results (user_id, match_score) VALUES (%s, %s)",
+        (user_id, match_score)
+    )
     conn.commit()
+    cursor.close()
     conn.close()
-    
-    return jsonify({"user_id": user_id, "match_score": match_score})
+
+    return jsonify({"message": "数据提交成功", "user_id": user_id, "match_score": match_score})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 @app.route("/get_results", methods=["GET"])
 def get_results():
