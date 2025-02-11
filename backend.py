@@ -55,7 +55,7 @@ def submit_test():
     return jsonify({"message": "数据提交成功", "user_id": user_id, "match_score": match_score})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000, debug=True)
 
 
 @app.route("/get_results", methods=["GET"])
