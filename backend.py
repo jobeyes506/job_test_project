@@ -7,6 +7,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)  # 允许跨域请求
 
+@app.route("/")
+def home():
+return"Flask 服务器正常运行!"
+
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
     "host": "db.xyz.supabase.co",  # 从 Supabase 复制
