@@ -63,7 +63,7 @@ def get_results():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM test_results")
-      results = cursor.fetchall()
+    results = cursor.fetchall()
     cursor.close()
     conn.close()
     return jsonify(results)
