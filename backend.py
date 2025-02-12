@@ -9,7 +9,7 @@ CORS(app)  # 允许跨域请求
 
 
 
-import psycopg2
+
 
 DB_CONFIG = {
     'dbname': 'postgres',
