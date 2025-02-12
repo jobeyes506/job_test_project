@@ -18,23 +18,6 @@ def get_results():
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
 
-DB_CONFIG = {
-    'dbname': 'postgres',
-    'user': 'postgres',
-    'password': 'huijie506',
-    'host': 'db.adeqlzjbkhxljhierjib.supabase.co',
-    'port': '5432'
-}
-
-def get_db_connection():
-    try:
-        print("🔍 正在连接数据库...")
-        conn = psycopg2.connect(**DB_CONFIG)
-        print("✅ 数据库连接成功！")
-        return conn
-    except Exception as e:
-        print(f"❌ 数据库连接失败: {e}")
-        return None
 
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
@@ -87,15 +70,3 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
 
 
-@app.route('/get_results', methods=['GET'])
-def get_results():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM test_results")
-    results = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return jsonify(results)
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
