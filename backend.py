@@ -7,16 +7,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)  # 允许跨域请求
 
-@app.route('/health', methods=['GET'])
-def health_check():
-    return "✅ Flask 服务器运行正常！"
 
-@app.route('/get_results', methods=['GET'])
-def get_results():
-    return jsonify({"message": "测试 API 正常运行"})
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
 
 
 # 数据库连接信息（请修改为你的数据库配置）
