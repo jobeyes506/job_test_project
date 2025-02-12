@@ -70,3 +70,15 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
 
 
+@app.route('/get_results', methods=['GET'])
+def get_results():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM test_results")
+    results = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return jsonify(results)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000, debug=True)
