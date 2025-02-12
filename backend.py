@@ -11,6 +11,26 @@ CORS(app)  # 允许跨域请求
 def home():
        return"Flask 服务器正常运行!"
 
+import psycopg2
+
+DB_CONFIG = {
+    'dbname': 'your-db-name',
+    'user': 'your-db-user',
+    'password': 'your-db-password',
+    'host': 'your-db-host',
+    'port': '5432'
+}
+
+def get_db_connection():
+    try:
+        print("🔍 正在连接数据库...")
+        conn = psycopg2.connect(**DB_CONFIG)
+        print("✅ 数据库连接成功！")
+        return conn
+    except Exception as e:
+        print(f"❌ 数据库连接失败: {e}")
+        return None
+
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
     "host": "db.adeqlzjbkhxljhierjib.supabase.co",  # 从 Supabase 复制
