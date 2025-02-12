@@ -11,7 +11,12 @@ CORS(app)  # 允许跨域请求
 def health_check():
     return "✅ Flask 服务器运行正常！"
 
+@app.route('/get_results', methods=['GET'])
+def get_results():
+    return jsonify({"message": "测试 API 正常运行"})
 
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
 
 DB_CONFIG = {
     'dbname': 'postgres',
