@@ -14,10 +14,10 @@ def home():
 import psycopg2
 
 DB_CONFIG = {
-    'dbname': 'your-db-name',
-    'user': 'your-db-user',
-    'password': 'your-db-password',
-    'host': 'your-db-host',
+    'dbname': 'postgres',
+    'user': 'postgres',
+    'password': 'huijie506',
+    'host': 'db.adeqlzjbkhxljhierjib.supabase.co',
     'port': '5432'
 }
 
