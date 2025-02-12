@@ -13,7 +13,7 @@ def home():
 
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
-    "host": "db.xyz.supabase.co",  # 从 Supabase 复制
+    "host": "db.adeqlzjbkhxljhierjib.supabase.co",  # 从 Supabase 复制
     "port": "5432",  # PostgreSQL 默认端口
     "database": "postgres",  # Supabase 默认数据库名
     "user": "postgres",  # 默认用户
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
 
 
-@app.route("/get_results", methods=["GET"])
+@app.route('/get_results', methods=['GET'])
 def get_results():
     conn = get_db_connection()
     cursor = conn.cursor()
