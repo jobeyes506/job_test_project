@@ -7,7 +7,16 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)  # 允许跨域请求
 
-
+@app.route('/get_results', methods=['GET'])
+def get_results():
+    try:
+        conn = get_db_connection()
+        if conn:
+            return jsonify({"message": "数据库连接成功"})
+        else:
+            return jsonify({"error": "数据库连接失败"}), 500
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # 数据库连接信息（请修改为你的数据库配置）
