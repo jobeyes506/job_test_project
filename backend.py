@@ -4,14 +4,13 @@ import os
 import numpy as np
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)  # 允许跨域请求
+
 
 
 DB_CONFIG = {
     'dbname': 'postgres',  # Supabase 默认数据库名称
     'user': 'postgres',  # Supabase 默认用户
-    'password': 'huijie506',  
+    'password': '9I6X5qJFXWHbgm6Q',  
     'host': 'db.adeqlzjbkhxljhierjib.supabase.co',  # 你的 Supabase DB Host
     'port': '5432'
 }
