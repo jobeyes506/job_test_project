@@ -19,10 +19,16 @@ DB_CONFIG = {
 def get_db_connection():
     try:
         print("🔍 正在连接 Supabase 数据库...")
-        conn = psycopg2.connect(**DB_CONFIG)
+        conn = psycopg2.connect(
+            dbname='postgres',
+            user='postgres',
+            password='9I6X5qJFXWHbgm6Q',
+            host='db.adeqlzjbkhxljhierjib.supabase.co',
+            port='5432',
+            sslmode='require'  # 🔥 关键：强制使用 SSL 连接
+        )
         print("✅ 数据库连接成功！")
         return conn
     except Exception as e:
         print(f"❌ 数据库连接失败: {e}")
         return None
-
