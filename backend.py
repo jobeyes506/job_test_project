@@ -28,5 +28,22 @@ def get_db_connection():
         print(f"❌ 数据库连接失败: {e}")
         return None
 
+@app.route('/get_results', methods=['GET'])
+def get_results():
+    try:
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({"error": "数据库连接失败"}), 500
+
+        cur = conn.cursor()
+        cur.execute("SELECT NOW();")  # 仅测试数据库是否可用
+        result = cur.fetchone()
+        conn.close()
+
+        return jsonify({"message": "数据库连接成功", "timestamp": result[0]})
+    
+    except Exception as e:
+        print(f"❌ API 执行失败: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
