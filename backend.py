@@ -1,5 +1,6 @@
-rom flask import Flask, request, jsonify
+from flask import Flask, request, jsonify
 import psycopg2
+import numpy as np
 from flask_cors import CORS
 
 app = Flask(__name__)
