@@ -13,7 +13,7 @@ DB_CONFIG = {
     'dbname': 'postgres',  # 默认数据库名称
     'user': 'postgres',  # 默认用户
     'password': '9I6X5qJFXWHbgm6Q',  
-    'host': 'pool.supabase.co',  # Supabase 服务器地址
+    'host': 'db.adeqlzjbkhxljhierjib.supabase.co',  # Supabase 服务器地址
     'port': '5432',
     'sslmode': 'require'  # 关键！Supabase 可能要求 SSL 加密
 }
