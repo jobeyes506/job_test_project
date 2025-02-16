@@ -6,13 +6,15 @@ app = Flask(__name__)
 CORS(app)  # 允许跨域请求
 
 # 🔥 确保数据库连接代码在 backend.py 里！
+
+
 DB_CONFIG = {
-    'dbname': 'postgres',  
-    'user': 'postgres',  
-    'password': '9I6X5qJFXWHbgm6Q',  
-    'host': 'db.adeqlzjbkhxljhierjib.supabase.co',  
+    'dbname': 'postgres',
+    'user': 'postgres',
+    'password': '9I6X5qJFXWHbgm6Q',
+    'host': '169.254.20.10',  # 使用 nslookup 找到的 IPv4 地址
     'port': '5432',
-    'sslmode': 'require'  
+    'sslmode': 'require'
 }
 
 def get_db_connection():
