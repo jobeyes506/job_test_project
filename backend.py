@@ -52,5 +52,7 @@ def get_results():
         print(f"❌ API 执行失败: {e}")
         return jsonify({"error": str(e)}), 500
 
+flask run --host=0.0.0.0 --port=10000
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000, debug=True)
