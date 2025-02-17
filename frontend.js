@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("submitTest").addEventListener("click", submitTest);
+    const button = document.getElementById("submitTest");
+    if (button) {
+        button.addEventListener("click", submitTest);
+    } else {
+        console.error("❌ 按钮 `submitTest` 未找到，请检查 HTML 代码！");
+    }
 });
 
 function submitTest() {
@@ -23,11 +28,11 @@ function submitTest() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log("Success:", data);
+        console.log("✅ 提交成功:", data);
         document.getElementById("result").innerHTML = `<strong>测试结果：</strong> ${data.message || "提交成功"}`;
     })
     .catch(error => {
-        console.error("Error:", error);
+        console.error("❌ 提交失败:", error);
         document.getElementById("result").innerHTML = `<strong>错误：</strong> 提交失败，请检查网络连接或稍后重试。`;
     });
 }
