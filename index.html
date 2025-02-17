@@ -31,23 +31,3 @@
         
         <div class="result" id="result"></div>
     </div>
-
-    <script>
-        function submitTest() {
-            const data = {
-                user_id: "test_user",
-                answers: {
-                    "关键问题": [parseFloat(document.getElementById("keyScore").value) || 0],
-                    "倾向性问题": [parseFloat(document.getElementById("tendencyScore").value) || 0],
-                    "细化调整问题": [parseFloat(document.getElementById("detailedScore").value) || 0],
-                    "二次确认问题": [parseFloat(document.getElementById("confirmScore").value) || 0]
-                }
-            };
-            
-            fetch("https://job-test-project.onrender.com/submit_test", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-    </script>
