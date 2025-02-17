@@ -9,40 +9,6 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ["https://job-test-project.vercel.app"]}})
  #CORS(app)  # 允许跨域请求
 
-@app.route('/submit_test', methods=['POST'])
-def submit_test():
-    try:
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "无效的请求"}), 400
-
-        user_id = data.get("user_id")
-        key_score = data.get("key_score")
-        tendency_score = data.get("tendency_score")
-        detailed_score = data.get("detailed_score")
-        confirm_score = data.get("confirm_score")
-
-        if not user_id:
-            return jsonify({"error": "缺少 user_id"}), 400
-
-        # ✅ 确保数据库表结构正确
-        conn = get_db_connection()
-        cursor = conn.cursor()
-
-        # **检查数据库表的字段是否正确**
-        cursor.execute("""
-            INSERT INTO test_results (user_id, key_score, tendency_score, detailed_score, confirm_score)
-            VALUES (%s, %s, %s, %s, %s)
-        """, (user_id, key_score, tendency_score, detailed_score, confirm_score))
-
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-        return jsonify({"message": "测试提交成功"}), 200
-    except Exception as e:
-        print(f"❌ 服务器错误: {e}")
-        return jsonify({"error": "服务器内部错误"}), 500
 
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
@@ -78,22 +44,38 @@ def calculate_match_score(user_answers):
 
 @app.route('/submit_test', methods=['POST'])
 def submit_test():
-    data = request.get_json()
-    user_id = data.get("user_id")
-    match_score = data.get("match_score")
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "无效的请求"}), 400
 
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO test_results (user_id, match_score) VALUES (%s, %s)",
-        (user_id, match_score)
-    )
-    conn.commit()
-    cursor.close()
-    conn.close()
+        user_id = data.get("user_id")
+        key_score = data.get("key_score")
+        tendency_score = data.get("tendency_score")
+        detailed_score = data.get("detailed_score")
+        confirm_score = data.get("confirm_score")
 
-    return jsonify({"message": "数据提交成功", "user_id": user_id, "match_score": match_score})
+        if not user_id:
+            return jsonify({"error": "缺少 user_id"}), 400
 
+        # ✅ 确保数据库表结构正确
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # **检查数据库表的字段是否正确**
+        cursor.execute("""
+            INSERT INTO test_results (user_id, key_score, tendency_score, detailed_score, confirm_score)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (user_id, key_score, tendency_score, detailed_score, confirm_score))
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return jsonify({"message": "测试提交成功"}), 200
+    except Exception as e:
+        print(f"❌ 服务器错误: {e}")
+        return jsonify({"error": "服务器内部错误"}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
