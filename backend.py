@@ -78,8 +78,8 @@ def submit_test():
 
     return jsonify({"message": "数据提交成功", "user_id": user_id, "match_score": match_score})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
+# if __name__ == '__main__':
+    # app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
 
 
 @app.route('/get_results', methods=['GET'])
@@ -92,5 +92,5 @@ def get_results():
     conn.close()
     return jsonify(results)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
+# if __name__ == "__main__":
+    # app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
