@@ -6,7 +6,8 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)  # 允许跨域请求
-
+CORS(app, resources=r'/*')
+app.config['CORS_HEADERS'] = 'application/json'
 
 @app.route('/get_results', methods=['GET'])
 def get_results():
