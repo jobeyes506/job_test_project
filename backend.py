@@ -5,9 +5,9 @@ import numpy as np
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # 允许跨域请求
+
 CORS(app, resources={r"/*": {"origins": ["https://job-test-project.vercel.app"]}})
-app.config['CORS_HEADERS'] = 'application/json'
+ #CORS(app)  # 允许跨域请求
 
 @app.route('/submit_test', methods=['POST'])
 def submit_test():
