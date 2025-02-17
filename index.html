@@ -10,39 +10,8 @@
         input, button { display: block; width: 100%; padding: 10px; margin-top: 10px; }
         .result { margin-top: 20px; padding: 10px; background-color: #f4f4f4; border-radius: 5px; }
     </style>
-    <script>
-        function submitTest() {
-            const data = {
-                user_id: "test_user",
-                answers: {
-                    "关键问题": [parseFloat(document.getElementById("keyScore").value) || 0],
-                    "倾向性问题": [parseFloat(document.getElementById("tendencyScore").value) || 0],
-                    "细化调整问题": [parseFloat(document.getElementById("detailedScore").value) || 0],
-                    "二次确认问题": [parseFloat(document.getElementById("confirmScore").value) || 0]
-                }
-            };
-            
-            fetch("https://job-test-project.vercel.app/submit_test", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            }).then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Success:", data);
-                alert("Test submitted successfully!");
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                alert("Failed to submit test. Please check the console for more details.");
-            });
-        }
-    </script>
 </head>
+ <script src="frontend.js"></script>
 <body>
     <div class="container">
         <h2>求职测评</h2>
@@ -62,5 +31,23 @@
         
         <div class="result" id="result"></div>
     </div>
-</body>
-</html>
+
+    <script>
+        function submitTest() {
+            const data = {
+                user_id: "test_user",
+                answers: {
+                    "关键问题": [parseFloat(document.getElementById("keyScore").value) || 0],
+                    "倾向性问题": [parseFloat(document.getElementById("tendencyScore").value) || 0],
+                    "细化调整问题": [parseFloat(document.getElementById("detailedScore").value) || 0],
+                    "二次确认问题": [parseFloat(document.getElementById("confirmScore").value) || 0]
+                }
+            };
+            
+            fetch("https://job-test-project.onrender.com/submit_test", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+    </script>
