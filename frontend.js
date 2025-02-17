@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ user_id: "123", test_results: "测试数据" })
+            body: JSON.stringify({ user_id: "123", match_score: "测试数据" })
         })
         .then(response => response.json())
         .then(data => console.log("Success:", data))
