@@ -26,13 +26,13 @@ def get_results():
 
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
-    "host": "aws-0-ap-southeast-1.pooler.supabase.com",  # 从 Supabase 复制
-    "port": "6543",  # PostgreSQL 默认端口
-    "database": "postgres",  # Supabase 默认数据库名
-    "user": "postgres.adeqlzjbkhxljhierjib",  # 默认用户
-    "password": "tCWjJAAseEtw07pO"  # 你创建数据库时设置的密码
+    'dbname': 'postgres',
+    'user': 'postgres.adeqlzjbkhxljhierjib',
+    'password': 'TPeSe71FEdKKtJP3',
+    'host': 'aws-0-ap-southeast-1.pooler.supabase.com',  # 使用 nslookup 找到的 IPv4 地址
+    'port': '5432',
+    'sslmode': 'require'
 }
-
 
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)
