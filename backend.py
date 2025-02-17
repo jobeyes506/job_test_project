@@ -10,9 +10,9 @@ CORS(app)  # 允许跨域请求
 
 DB_CONFIG = {
     'dbname': 'postgres',
-    'user': 'postgres',
-    'password': 'wcStjYFSoA9RZlND',
-    'host': 'db.adeqlzjbkhxljhierjib.supabase.co',  # 使用 nslookup 找到的 IPv4 地址
+    'user': 'postgres.adeqlzjbkhxljhierjib',
+    'password': 'TPeSe71FEdKKtJP3',
+    'host': 'aws-0-ap-southeast-1.pooler.supabase.com',  # 使用 nslookup 找到的 IPv4 地址
     'port': '5432',
     'sslmode': 'require'
 }
