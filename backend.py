@@ -12,7 +12,7 @@ DB_CONFIG = {
     'dbname': 'postgres',
     'user': 'postgres',
     'password': '9I6X5qJFXWHbgm6Q',
-    'host': '169.254.20.10',  # 使用 nslookup 找到的 IPv4 地址
+    'host': 'db.adeqlzjbkhxljhierjib.supabase.co',  # 使用 nslookup 找到的 IPv4 地址
     'port': '5432',
     'sslmode': 'require'
 }
