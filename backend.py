@@ -8,40 +8,35 @@ app = Flask(__name__)
 CORS(app)  # 允许跨域请求
 
 
-
-DB_CONFIG = {
-    'dbname': 'postgres',
-    'user': 'postgres.adeqlzjbkhxljhierjib',
-    'password': 'TPeSe71FEdKKtJP3',
-    'host': 'aws-0-ap-southeast-1.pooler.supabase.com',  # 使用 nslookup 找到的 IPv4 地址
-    'port': '5432',
-    'sslmode': 'require'
-}
-
-def get_db_connection():
+@app.route('/get_results', methods=['GET'])
+def get_results():
     try:
-        print("🔍 连接 Supabase 数据库中...")
-        conn = psycopg2.connect(**DB_CONFIG)
-        print("✅ 数据库连接成功！")
-        return conn
-    except Exception as e:
-        print(f"❌ 数据库连接失败: {e}")
-        return None
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM test_results")
+        results = cursor.fetchall()
+        cursor.close()
+        conn.close()
 
+        # 将查询结果转换为 JSON 格式并返回
+        return jsonify({"results": results})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # 数据库连接信息（请修改为你的数据库配置）
 DB_CONFIG = {
-    "host": "db.adeqlzjbkhxljhierjib.supabase.co",  # 从 Supabase 复制
-    "port": "5432",  # PostgreSQL 默认端口
+    "host": "aws-0-ap-southeast-1.pooler.supabase.com",  # 从 Supabase 复制
+    "port": "6543",  # PostgreSQL 默认端口
     "database": "postgres",  # Supabase 默认数据库名
-    "user": "postgres",  # 默认用户
-    "password": "9I6X5qJFXWHbgm6Q"  # 你创建数据库时设置的密码
-    
+    "user": "postgres.adeqlzjbkhxljhierjib",  # 默认用户
+    "password": "tCWjJAAseEtw07pO"  # 你创建数据库时设置的密码
 }
+
 
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)
+
 
 # 评分权重配置
 WEIGHTS = {
@@ -50,6 +45,7 @@ WEIGHTS = {
     "细化调整问题": 0.2,
     "二次确认问题": 0.1
 }
+
 
 # 计算匹配度
 def calculate_match_score(user_answers):
@@ -78,17 +74,6 @@ def submit_test():
 
     return jsonify({"message": "数据提交成功", "user_id": user_id, "match_score": match_score})
 
-@app.route('/get_results', methods=['GET'])
-def get_results():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM test_results")
-    results = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return jsonify(results)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
-
