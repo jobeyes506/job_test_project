@@ -79,3 +79,29 @@ def submit_test():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=True)
+
+@app.route('/submit_payment', methods=['POST'])
+def submit_payment():
+    data = request.json
+    user_id = data.get("user_id")
+    amount = data.get("amount")
+    transaction_id = data.get("transaction_id")
+    status = data.get("status", "FAILED")  # 默认支付失败
+
+    if status == "SUCCESS":
+        try:
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute("""
+                INSERT INTO payments (user_id, amount, transaction_id, status, created_at)
+                VALUES (%s, %s, %s, %s, NOW())
+                ON CONFLICT (transaction_id) DO NOTHING;
+            """, (user_id, amount, transaction_id, status))
+            conn.commit()
+            cur.close()
+            conn.close()
+            return jsonify({"message": "Payment recorded successfully", "status": "SUCCESS"})
+        except Exception as e:
+            return jsonify({"error": f"Database error: {str(e)}"}), 500
+    else:
+        return jsonify({"error": "Payment failed"}), 400
